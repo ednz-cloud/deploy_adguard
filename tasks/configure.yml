@@ -1,0 +1,9 @@
+---
+# task/configure file for deploy_adguard
+- name: "Copy docker-compose.yml template"
+  ansible.builtin.template:
+    src: "docker-compose.yml.j2"
+    dest: "{{ deploy_adguard_directory }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0600'

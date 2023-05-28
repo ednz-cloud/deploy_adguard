@@ -1,6 +1,6 @@
 ---
 # defaults file for deploy_adguard
-deploy_adguard_directory: /adguard
+deploy_adguard_directory: /opt/adguard
 deploy_adguard_timezone: "Europe/Paris"
 deploy_adguard_enable_admin_interface: true
 deploy_adguard_enable_dhcp: false
