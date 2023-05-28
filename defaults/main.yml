@@ -1,0 +1,10 @@
+---
+# defaults file for deploy_adguard
+deploy_adguard_directory: /adguard
+deploy_adguard_timezone: "Europe/Paris"
+deploy_adguard_enable_admin_interface: true
+deploy_adguard_enable_dhcp: false
+deploy_adguard_enable_doh: true
+deploy_adguard_enable_dot: false
+deploy_adguard_enable_doq: false
+deploy_adguard_enable_dnscrypt: false
