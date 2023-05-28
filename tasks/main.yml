@@ -1,2 +1,4 @@
 ---
 # task/main file for deploy_adguard
+- name: "Import prerequisites.yml"
+  ansible.builtin.include_tasks: prerequisites.yml

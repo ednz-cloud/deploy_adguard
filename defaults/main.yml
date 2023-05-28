@@ -8,3 +8,8 @@ deploy_adguard_enable_doh: true
 deploy_adguard_enable_dot: false
 deploy_adguard_enable_doq: false
 deploy_adguard_enable_dnscrypt: false
+deploy_adguard_virtual_ip:
+  enable: false
+  interface: eth0
+  vip_addr: "192.168.1.53"
+deploy_adguard_config: {}

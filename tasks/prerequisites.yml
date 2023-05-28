@@ -1,0 +1,25 @@
+---
+# task/prerequisites file for deploy_adguard
+- name: "Create adguard directory"
+  ansible.builtin.file:
+    path: "{{ deploy_adguard_directory }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: "Create adguard/conf directory"
+  ansible.builtin.file:
+    path: "{{ deploy_adguard_directory }}/conf"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: "Create adguard/data directory"
+  ansible.builtin.file:
+    path: "{{ deploy_adguard_directory }}/data"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
