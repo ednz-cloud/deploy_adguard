@@ -1,5 +1,13 @@
 ---
 # task/configure file for deploy_adguard
+- name: "Copy adguard.service file"
+  ansible.builtin.template:
+    src: "adguard.service.j2"
+    dest: "/etc/systemd/system/adguard.service"
+    owner: root
+    group: root
+    mode: '0644'
+
 - name: "Copy docker-compose.yml template"
   ansible.builtin.template:
     src: "docker-compose.yml.j2"
@@ -7,3 +15,12 @@
     owner: root
     group: root
     mode: '0600'
+
+- name: "Copy AdGuardHome.yaml"
+  ansible.builtin.template:
+    src: "AdGuardHome.yaml.j2"
+    dest: "{{ deploy_adguard_directory }}/conf/AdGuardHome.yaml"
+    owner: root
+    group: root
+    mode: '0600'
+  when: deploy_adguard_config is not empty
