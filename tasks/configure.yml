@@ -7,6 +7,8 @@
     owner: root
     group: root
     mode: '0644'
+  notify:
+    - systemctl_daemon_reload
 
 - name: "Copy docker-compose.yml template"
   ansible.builtin.template:
@@ -15,6 +17,8 @@
     owner: root
     group: root
     mode: '0600'
+  notify:
+    - systemctl_restart_adguard
 
 - name: "Copy AdGuardHome.yaml"
   ansible.builtin.template:
@@ -24,3 +28,5 @@
     group: root
     mode: '0600'
   when: deploy_adguard_config is not empty
+  notify:
+    - systemctl_restart_adguard
