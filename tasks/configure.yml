@@ -27,6 +27,6 @@
     owner: root
     group: root
     mode: '0600'
-  when: deploy_adguard_config is not empty
+  when: deploy_adguard_config != {}
   notify:
     - systemctl-restart-adguard
