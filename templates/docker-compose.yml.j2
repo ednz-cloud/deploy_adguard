@@ -2,6 +2,18 @@
 version: '3.9'
 
 services:
+{% if deploy_adguard_virtual_ip['enable'] %}
+  keepalived:
+    image: ghcr.io/rmartin16/keepalived:latest
+    network_mode: host
+    environment:
+      INTERFACE: {{ deploy_adguard_virtual_ip['interface'] }}
+      VIRTUAL_IPS: {{ deploy_adguard_virtual_ip['vip_addr'] }}
+      STATE: "BACKUP"
+    cap_add:
+      - NET_ADMIN
+{% endif %}
+
   adguard:
     image: adguard/adguardhome:latest
     ports:
