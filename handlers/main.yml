@@ -1,2 +1,20 @@
 ---
 # handlers file for deploy_adguard
+- name: "Reload systemd file"
+  ansible.builtin.systemd:
+    daemon_reload: true
+  listen: "systemctl-daemon-reload"
+
+- name: "Enable consul service"
+  ansible.builtin.service:
+    name: adguard
+    enabled: true
+  listen: "systemctl-enable-adguard"
+
+- name: "Start consul service"
+  ansible.builtin.service:
+    name: adguard
+    state: restarted
+  listen: "systemctl-restart-adguard"
+  throttle: 1
+  when: deploy_adguard_start_service
