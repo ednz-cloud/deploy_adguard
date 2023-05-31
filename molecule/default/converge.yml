@@ -3,5 +3,5 @@
   hosts: all
   tasks:
     - name: "Include ednxzu.deploy_adguard"
-      include_role:
+      ansible.builtin.include_role:
         name: "ednxzu.deploy_adguard"
