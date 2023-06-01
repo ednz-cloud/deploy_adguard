@@ -12,8 +12,8 @@ services:
       STATE: "BACKUP"
     cap_add:
       - NET_ADMIN
-{% endif %}
 
+{% endif %}
   adguard:
     image: adguard/adguardhome:latest
     ports:
@@ -50,6 +50,25 @@ services:
       - data:/opt/adguardhome/work
     networks:
       - internal
+{% if deploy_adguard_node_exporter %}
+
+  node_exporter:
+    image: ebrianne/adguard-exporter:latest
+    environment:
+      - adguard_protocol=http
+      - adguard_hostname=192.168.10.252
+      - adguard_username=admin
+      - adguard_password=/run/secrets/my-adguard-pass
+      - adguard_port= #optional
+      - server_port=9617
+      - interval=10s
+      - log_limit=10000
+      - password_from_file=true
+    ports:
+      - "9617:9617"
+    networks:
+      - internal
+{% endif %}
 
 networks:
   internal:
