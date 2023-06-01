@@ -5,13 +5,13 @@
     daemon_reload: true
   listen: "systemctl-daemon-reload"
 
-- name: "Enable consul service"
+- name: "Enable adguard service"
   ansible.builtin.service:
     name: adguard
     enabled: true
   listen: "systemctl-enable-adguard"
 
-- name: "Start consul service"
+- name: "Start adguard service"
   ansible.builtin.service:
     name: adguard
     state: restarted

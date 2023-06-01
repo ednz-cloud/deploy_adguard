@@ -1,13 +1,13 @@
 [Unit]
-Description=Some personal Docker containers
+Description=Free and open source, powerful network-wide ads & trackers blocking DNS server.
 After=docker.service
 Requires=docker.service
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/bin/bash -c "docker compose -f {{ deploy_adguard_directory }}/docker-compose.yml up --detach"
-ExecStop=/bin/bash -c "docker compose -f {{ deploy_adguard_directory }}/docker-compose.yml stop"
+ExecStart=/bin/bash -c "docker-compose -f {{ deploy_adguard_directory }}/docker-compose.yml up --detach"
+ExecStop=/bin/bash -c "docker-compose -f {{ deploy_adguard_directory }}/docker-compose.yml down"
 
 [Install]
 WantedBy=multi-user.target
