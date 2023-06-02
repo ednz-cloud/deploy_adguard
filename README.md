@@ -16,7 +16,7 @@ Available variables are listed below, along with default values. A sample file f
 Dependencies
 ------------
 
-This role has a task that installs its own dependencies located in `task/prerequisites.yml`, so that you don't need to manage them. This role requires both `ednxzu.manage_repositories` and `ednxzu.manage_apt_packages` to install consul.
+None.
 
 Example Playbook
 ----------------
@@ -25,7 +25,7 @@ Example Playbook
 # calling the role inside a playbook with either the default or group_vars/host_vars
 - hosts: servers
   roles:
-    - ednxzu.hashicorp_consul
+    - ednxzu.deploy_adguard
 ```
 
 License

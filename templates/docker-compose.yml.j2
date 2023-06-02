@@ -54,16 +54,18 @@ services:
 
   node_exporter:
     image: ebrianne/adguard-exporter:latest
+    secrets:
+      - adguard_passw
     environment:
-      - adguard_protocol=http
-      - adguard_hostname=192.168.10.252
-      - adguard_username=admin
-      - adguard_password=/run/secrets/my-adguard-pass
-      - adguard_port= #optional
-      - server_port=9617
-      - interval=10s
-      - log_limit=10000
-      - password_from_file=true
+      adguard_protocol: {{ deploy_adguard_node_exporter['protocol'] }}
+      adguard_hostname: adguard
+      adguard_username: {{ deploy_adguard_node_exporter['username'] }}
+      adguard_password: /run/secrets/adguard_passw
+      adguard_port: {{ deploy_adguard_node_exporter['port'] }}
+      server_port: {{ deploy_adguard_node_exporter['exporter_port'] }}
+      interval: {{ deploy_adguard_node_exporter['interval'] }}
+      log_limit: {{ deploy_adguard_node_exporter['log_limit'] }}
+      password_from_file: true
     ports:
       - "9617:9617"
     networks:
@@ -85,3 +87,7 @@ volumes:
       o: bind
       device: {{ deploy_adguard_directory }}/data
       type: none
+
+secrets:
+  adguard_passw:
+    file: {{ deploy_adguard_directory }}/password

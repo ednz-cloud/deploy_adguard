@@ -9,9 +9,19 @@ deploy_adguard_enable_dot: false
 deploy_adguard_enable_doq: false
 deploy_adguard_enable_dnscrypt: false
 deploy_adguard_start_service: false
-deploy_adguard_node_exporter: false
 deploy_adguard_virtual_ip:
   enable: false
   interface: eth0
   vip_addr: "192.168.1.53"
+deploy_adguard_node_exporter:
+  enable: false
+  protocol: http
+  port: 80
+  username: changeme
+  password: changeme
+  exporter_port: 9617
+  interval: 10s
+  log_limit: 10000
+deploy_adguard_consul:
+  enable: false
 deploy_adguard_config: {}
