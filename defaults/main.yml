@@ -24,4 +24,7 @@ deploy_adguard_node_exporter:
   log_limit: 10000
 deploy_adguard_consul:
   enable: false
+  consul_protocol: http
+  consul_addr: 127.0.0.1:8500
+  consul_token: someUUIDhere
 deploy_adguard_config: {}

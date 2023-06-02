@@ -10,15 +10,25 @@
   notify:
     - systemctl-daemon-reload
 
-- name: "Copy docker-compose.yml template"
-  ansible.builtin.template:
-    src: "docker-compose.yml.j2"
-    dest: "{{ deploy_adguard_directory }}/docker-compose.yml"
-    owner: root
-    group: root
-    mode: '0600'
-  notify:
-    - systemctl-restart-adguard
+- name: "Configure docker-compose deployment"
+  block:
+    - name: "Copy docker-compose.yml template"
+      ansible.builtin.template:
+        src: "docker-compose.yml.j2"
+        dest: "{{ deploy_adguard_directory }}/docker-compose.yml"
+        owner: root
+        group: root
+        mode: '0600'
+      notify:
+        - systemctl-restart-adguard
+
+    - name: "Create password file for node-exporter"
+      ansible.builtin.copy:
+        dest: "{{ deploy_adguard_directory }}/password"
+        content: "{{ deploy_adguard_node_exporter['password'] }}"
+      when: deploy_adguard_node_exporter['enable']
+      notify:
+        - systemctl-restart-adguard
 
 - name: "Copy AdGuardHome.yaml"
   ansible.builtin.template:
