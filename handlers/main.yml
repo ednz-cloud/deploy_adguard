@@ -18,3 +18,10 @@
   listen: "systemctl-restart-adguard"
   throttle: 1
   when: deploy_adguard_start_service
+
+- name: "Enable adguard-connect-proxy service"
+  ansible.builtin.service:
+    name: adguard-connect-proxy
+    enabled: true
+    state: restarted
+  listen: "systemctl-enable-restart-adguard-connect-proxy"

@@ -16,6 +16,10 @@ services:
 {% endif %}
   adguard:
     image: adguard/adguardhome:latest
+{% if deploy_adguard_virtual_ip['enable']%}
+    depends_on:
+      - keepalived
+{% endif %}
     ports:
       - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}53:53/tcp"
       - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}53:53/udp"
@@ -53,6 +57,8 @@ services:
 
   node_exporter:
     image: ebrianne/adguard-exporter:latest
+    depends_on:
+      - adguard
     secrets:
       - adguard_passw
     environment:

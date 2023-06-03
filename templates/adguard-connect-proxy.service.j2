@@ -3,7 +3,8 @@ Description=Consul Envoy Proxy for Adguard.
 After=adguard.service,consul.service
 
 [Service]
-ExecStart=/usr/local/bin/consul connect envoy -sidecar-for {{ deploy_adguard_consul['configuration']['service']['name'] }}
+EnvironmentFile=-{{ deploy_adguard_directory }}/adguard-connect-proxy.env
+ExecStart=/usr/bin/consul connect envoy -sidecar-for {{ deploy_adguard_consul['configuration']['service']['name'] }}
 Restart=always
 RestartSec=3
 

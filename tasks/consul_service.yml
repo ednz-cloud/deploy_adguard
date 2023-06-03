@@ -1,0 +1,41 @@
+---
+# task/consul_service file for deploy_adguard
+- name: "Copy adguard.consul.json file"
+  ansible.builtin.template:
+    src: "adguard.consul.json.j2"
+    dest: "{{ deploy_adguard_directory }}/adguard.consul.json"
+    owner: root
+    group: root
+    mode: '0644'
+  register: _copy_service_template
+
+- name: "Register/Update consul service"
+  ansible.builtin.command: "consul services register {{ deploy_adguard_directory }}/adguard.consul.json"
+  environment:
+    CONSUL_HTTP_ADDR: "{{ deploy_adguard_consul['consul_addr'] }}"
+    CONSUL_HTTP_TOKEN: "{{ deploy_adguard_consul['consul_token'] }}"
+  when: _copy_service_template.changed
+
+- name: "Configure service mesh proxy"
+  when: deploy_adguard_consul['configuration']['service']['connect'] is defined
+  block:
+    - name: "Copy adguard-connect-proxy.env file"
+      ansible.builtin.template:
+        src: "adguard-connect-proxy.env.j2"
+        dest: "{{ deploy_adguard_directory }}/adguard-connect-proxy.env"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - "systemctl-enable-restart-adguard-connect-proxy"
+
+    - name: "Copy adguard-connect-proxy.service file"
+      ansible.builtin.template:
+        src: "adguard-connect-proxy.service.j2"
+        dest: "/etc/systemd/system/adguard-connect-proxy.service"
+        owner: root
+        group: root
+        mode: '0644'
+      notify:
+        - "systemctl-daemon-reload"
+        - "systemctl-enable-restart-adguard-connect-proxy"
