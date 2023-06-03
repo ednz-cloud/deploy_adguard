@@ -26,5 +26,12 @@ deploy_adguard_consul:
   enable: false
   consul_addr: http://127.0.0.1:8500
   consul_token: someUUIDhere
-  service_definition: {}
+  configuration:
+    service:
+      name: adguard
+      address: "{{ ansible_default_ipv4.address }}"
+      port: 80
+      tags: []
+      connect:
+        sidecar_service: {}
 deploy_adguard_config: {}
