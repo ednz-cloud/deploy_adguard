@@ -28,17 +28,17 @@ services:
         condition: service_healthy
 {% endif %}
     ports:
-      - "53:53/tcp"
-      - "53:53/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}53:53/tcp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}53:53/udp"
 {% if deploy_adguard_enable_admin_interface %}
       - "{% if deploy_adguard_consul['enable'] %}127.0.0.1:{% endif %}80:80/tcp"
       - "{% if deploy_adguard_consul['enable'] %}127.0.0.1:{% endif %}443:443/tcp"
       - "3000:3000/tcp"
 {% endif %}
 {% if deploy_adguard_enable_dhcp %}
-      - "67:67/udp"
-      - "68:68/tcp"
-      - "68:68/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}67:67/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}68:68/tcp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}68:68/udp"
 {% endif %}
 {% if deploy_adguard_enable_doh %}
       - "{% if deploy_adguard_virtual_ip['enable'] %}{% endif %}443:443/udp"
@@ -47,13 +47,13 @@ services:
       - "{% if deploy_adguard_virtual_ip['enable'] %}{% endif %}853:853/tcp"
 {% endif %}
 {% if deploy_adguard_enable_doq %}
-      - "784:784/udp"
-      - "8853:8853/udp"
-      - "853:853/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}784:784/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}8853:8853/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}853:853/udp"
 {% endif %}
 {% if deploy_adguard_enable_dnscrypt %}
-      - "5443:5443/tcp"
-      - "5443:5443/udp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}5443:5443/tcp"
+      - "{% if deploy_adguard_virtual_ip['enable'] %}{{ deploy_adguard_virtual_ip['vip_addr'] }}:{% endif %}5443:5443/udp"
 {% endif %}
     volumes:
       - conf:/opt/adguardhome/conf
