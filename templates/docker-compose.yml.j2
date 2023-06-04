@@ -6,6 +6,12 @@ services:
   keepalived:
     image: ghcr.io/rmartin16/keepalived:latest
     network_mode: host
+    healthcheck:
+      test: ["CMD-SHELL", "ip addr show dev management | grep -q {{ deploy_adguard_virtual_ip['vip_addr'] }}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     environment:
       INTERFACE: {{ deploy_adguard_virtual_ip['interface'] }}
       VIRTUAL_IPS: {{ deploy_adguard_virtual_ip['vip_addr'] }}
@@ -18,7 +24,8 @@ services:
     image: adguard/adguardhome:latest
 {% if deploy_adguard_virtual_ip['enable']%}
     depends_on:
-      - keepalived
+      keepalived:
+        condition: service_healthy
 {% endif %}
     ports:
       - "53:53/tcp"
