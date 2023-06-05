@@ -3,6 +3,53 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Example assertion
-      ansible.builtin.assert:
-        that: true
+    - name: "Test: file /etc/hosts"
+      block:
+        - name: "Stat file /etc/hosts"
+          ansible.builtin.stat:
+            path: "/etc/hosts"
+          register: stat_etc_hosts
+
+        - name: "Verify file /etc/hosts"
+          ansible.builtin.assert:
+            that:
+              - stat_etc_hosts.stat.exists
+              - stat_etc_hosts.stat.isreg
+              - stat_etc_hosts.stat.pw_name == 'root'
+              - stat_etc_hosts.stat.gr_name == 'root'
+
+    - name: "Test: directory /opt/adguard"
+      block:
+        - name: "Stat directory /opt/adguard"
+          ansible.builtin.stat:
+            path: "/opt/adguard"
+          register: stat_opt_adguard
+
+        - name: "Stat directory /opt/adguard/conf"
+          ansible.builtin.stat:
+            path: "/opt/adguard/conf"
+          register: stat_opt_adguard_conf
+
+        - name: "Stat directory /opt/adguard/data"
+          ansible.builtin.stat:
+            path: "/opt/adguard/data"
+          register: stat_opt_adguard_data
+
+        - name: "Verify directory /etc/consul.d"
+          ansible.builtin.assert:
+            that:
+              - stat_opt_adguard.stat.exists
+              - stat_opt_adguard.stat.isdir
+              - stat_opt_adguard.stat.pw_name == 'root'
+              - stat_opt_adguard.stat.gr_name == 'root'
+              - stat_opt_adguard.stat.mode == '0755'
+              - stat_opt_adguard_conf.stat.exists
+              - stat_opt_adguard_conf.stat.isdir
+              - stat_opt_adguard_conf.stat.pw_name == 'root'
+              - stat_opt_adguard_conf.stat.gr_name == 'root'
+              - stat_opt_adguard_conf.stat.mode == '0755'
+              - stat_opt_adguard_data.stat.exists
+              - stat_opt_adguard_data.stat.isdir
+              - stat_opt_adguard_data.stat.pw_name == 'root'
+              - stat_opt_adguard_data.stat.gr_name == 'root'
+              - stat_opt_adguard_data.stat.mode == '0755'
