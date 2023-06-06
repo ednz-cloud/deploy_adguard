@@ -60,7 +60,7 @@ services:
       - data:/opt/adguardhome/work
     networks:
       - internal
-{% if deploy_adguard_node_exporter %}
+{% if deploy_adguard_node_exporter['enable'] %}
 
   node_exporter:
     image: ebrianne/adguard-exporter:latest
@@ -100,6 +100,8 @@ volumes:
       device: {{ deploy_adguard_directory }}/data
       type: none
 
+{% if deploy_adguard_node_exporter['enable'] %}
 secrets:
   adguard_passw:
     file: {{ deploy_adguard_directory }}/password
+{% endif %}

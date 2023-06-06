@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include ednxzu.deploy_adguard"
+      ansible.builtin.include_role:
+        name: "ednxzu.deploy_adguard"
