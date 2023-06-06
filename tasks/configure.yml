@@ -20,6 +20,7 @@
         group: root
         mode: '0600'
       notify:
+        - systemctl-enable-adguard
         - systemctl-restart-adguard
 
     - name: "Create password file for node-exporter"

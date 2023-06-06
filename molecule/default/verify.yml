@@ -54,6 +54,35 @@
               - stat_opt_adguard_data.stat.gr_name == 'root'
               - stat_opt_adguard_data.stat.mode == '0755'
 
+    - name: "Test: service adguard"
+      block:
+        - name: "Get service adguard"
+          ansible.builtin.service_facts:
+
+        - name: "Stat file /etc/systemd/system/adguard.service"
+          ansible.builtin.stat:
+            path: "/etc/systemd/system/adguard.service"
+          register: stat_etc_systemd_system_adguard_service
+
+        - name: "Slurp file /etc/systemd/system/adguard.service"
+          ansible.builtin.slurp:
+            src: "/etc/systemd/system/adguard.service"
+          register: slurp_etc_systemd_system_adguard_service
+
+        - name: "Verify service consul"
+          ansible.builtin.assert:
+            that:
+              - stat_etc_systemd_system_adguard_service.stat.exists
+              - stat_etc_systemd_system_adguard_service.stat.isreg
+              - stat_etc_systemd_system_adguard_service.stat.pw_name == 'root'
+              - stat_etc_systemd_system_adguard_service.stat.gr_name == 'root'
+              - stat_etc_systemd_system_adguard_service.stat.mode == '0644'
+              - slurp_etc_systemd_system_adguard_service.content != ''
+              - ansible_facts.services['adguard.service'] is defined
+              - ansible_facts.services['adguard.service']['source'] == 'systemd'
+              - ansible_facts.services['adguard.service']['state'] == 'inactive'
+              - ansible_facts.services['adguard.service']['status'] == 'enabled'
+
     - name: "Test: file /opt/adguard/docker-compose.yml"
       block:
         - name: "Slurp file /opt/adguard/docker-compose.yml"
