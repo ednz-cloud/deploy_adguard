@@ -19,6 +19,14 @@
   throttle: 1
   when: deploy_adguard_start_service
 
+- name: "Register/Update consul service"
+  ansible.builtin.command: "consul services register {{ deploy_adguard_directory }}/adguard.consul.json"
+  environment:
+    CONSUL_HTTP_ADDR: "{{ deploy_adguard_consul['consul_addr'] }}"
+    CONSUL_HTTP_TOKEN: "{{ deploy_adguard_consul['consul_token'] }}"
+  changed_when: false
+  listen: "consul-services-register-adguard"
+
 - name: "Enable adguard-connect-proxy service"
   ansible.builtin.service:
     name: adguard-connect-proxy

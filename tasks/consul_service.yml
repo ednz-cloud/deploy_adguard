@@ -7,14 +7,8 @@
     owner: root
     group: root
     mode: '0644'
-  register: _copy_service_template
-
-- name: "Register/Update consul service"
-  ansible.builtin.command: "consul services register {{ deploy_adguard_directory }}/adguard.consul.json"
-  environment:
-    CONSUL_HTTP_ADDR: "{{ deploy_adguard_consul['consul_addr'] }}"
-    CONSUL_HTTP_TOKEN: "{{ deploy_adguard_consul['consul_token'] }}"
-  when: _copy_service_template.changed
+  notify:
+    - "consul-services-register-adguard"
 
 - name: "Configure service mesh proxy"
   when: deploy_adguard_consul['configuration']['service']['connect'] is defined

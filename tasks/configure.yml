@@ -27,6 +27,9 @@
       ansible.builtin.copy:
         dest: "{{ deploy_adguard_directory }}/password"
         content: "{{ deploy_adguard_node_exporter['password'] }}"
+        owner: root
+        group: root
+        mode: '0600'
       when: deploy_adguard_node_exporter['enable']
       notify:
         - systemctl-restart-adguard
