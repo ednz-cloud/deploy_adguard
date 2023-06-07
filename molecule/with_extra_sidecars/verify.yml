@@ -69,7 +69,7 @@
             src: "/etc/systemd/system/adguard.service"
           register: slurp_etc_systemd_system_adguard_service
 
-        - name: "Verify service consul"
+        - name: "Verify service adguard"
           ansible.builtin.assert:
             that:
               - stat_etc_systemd_system_adguard_service.stat.exists

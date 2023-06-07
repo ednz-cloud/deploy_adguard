@@ -69,7 +69,7 @@
             src: "/etc/systemd/system/adguard.service"
           register: slurp_etc_systemd_system_adguard_service
 
-        - name: "Verify service consul"
+        - name: "Verify service adguard"
           ansible.builtin.assert:
             that:
               - stat_etc_systemd_system_adguard_service.stat.exists
@@ -80,7 +80,7 @@
               - slurp_etc_systemd_system_adguard_service.content != ''
               - ansible_facts.services['adguard.service'] is defined
               - ansible_facts.services['adguard.service']['source'] == 'systemd'
-              - ansible_facts.services['adguard.service']['state'] == 'inactive'
+              - ansible_facts.services['adguard.service']['state'] == 'stopped'
               - ansible_facts.services['adguard.service']['status'] == 'enabled'
 
     - name: "Test: file /opt/adguard/docker-compose.yml"
