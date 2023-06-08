@@ -77,6 +77,28 @@ deploy_adguard_node_exporter: # by default, set to the following
   interval: 10s
   log_limit: 10000
 ```
+This variable handles the use of the [prometheus-node-exporter](https://github.com/ebrianne/adguard-exporter). Please refer to the [documentation](https://github.com/ebrianne/adguard-exporter/blob/master/README.md) for more information.
+
+```yaml
+deploy_adguard_consul: # by default, set to the following
+  enable: false
+  consul_addr: http://127.0.0.1:8500
+  consul_token: someUUIDhere
+  configuration:
+    service:
+      name: adguard
+      address: "{{ ansible_default_ipv4.address }}"
+      port: 80
+      tags: []
+      connect:
+        sidecar_service: {}
+```
+This variable handles registering adguard as a [consul](https://developer.hashicorp.com/consul) service, for healthchecking and other features. Note that this role will not install consul, envoy, or any other binary necessary for this feature to work. You can check the [hashicorp_consul](https://github.com/ednxzu/hashicorp_consul) ansible role, to deploy a consul agent on the same node.
+
+```yaml
+deploy_adguard_config: {} # by default, set to {}
+```
+This variable handles autoconfiguration of the adguard server. This variable will be parsed and injected as-is in the `AdGuardhome.yaml` file, si it must be a valid configuration file. You can refer to the [documentation](https://github.com/AdguardTeam/AdGuardHome/wiki/Configuration#configuration-file) to learn more about adguard configuration file. This method of passing configuration allows for compatibility with every configuration parameters that adguard has to offer.
 
 Dependencies
 ------------
