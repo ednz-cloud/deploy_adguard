@@ -1,6 +1,6 @@
-Deploy AdGuard
+deploy_adguard
 =========
-> This repository is only a mirror. Development and testing is done on a private gitlab server.
+> This repository is only a mirror. Development and testing is done on a private gitea server.
 
 This role install and configure adguard, with optionally virtual IP, metrics, and consul integration on **debian-based** distributions.
 
