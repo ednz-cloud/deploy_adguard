@@ -11,16 +11,12 @@ jobs:
       credentials:
         username: ${{ secrets.ACTIONS_USER }}
         password: ${{ secrets.ACTIONS_TOKEN }}
-    env:
-      ANSIBLE_HOST_KEY_CHECKING: 'false'
-      ANSIBLE_FORCE_COLOR: 'true'
-      ANSIBLE_PYTHON_INTERPRETER: /usr/bin/python3
     steps:
       - name: Checkout
         uses: actions/checkout@v3
 
       - name: "Ansible lint"
-        run: ansible-lint
+        run: ansible-lint --force-color
         working-directory: ${{ gitea.workspace }}
 
       - name: "YAML lint"
