@@ -54,7 +54,7 @@ Whether or not this server will use dnscrypt. This manages the port forwarding t
 
 
 ```yaml
-deploy_adguard_start_service: false # bydefault, set to false
+deploy_adguard_start_service: false # by default, set to false
 ```
 This variable manages whether or not to start the adguard service during the play, or when config files are changed. This can be useful to disable it if you plan on building golden images with this role and you don't want the containers to start during the build process. Please note that the service will ALWAYS be enabled, meaning that it'll automatically start upon reboot of the host.
 
