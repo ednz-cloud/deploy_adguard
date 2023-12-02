@@ -7,10 +7,12 @@
     owner: root
     group: root
     mode: '0644'
+  become: true
   notify:
     - systemctl-daemon-reload
 
 - name: "Configure docker-compose deployment"
+  become: true
   block:
     - name: "Copy docker-compose.yml template"
       ansible.builtin.template:
@@ -42,5 +44,6 @@
     group: root
     mode: '0600'
   when: deploy_adguard_config != {}
+  become: true
   notify:
     - systemctl-restart-adguard

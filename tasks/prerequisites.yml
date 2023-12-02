@@ -7,6 +7,7 @@
     owner: root
     group: root
     mode: '0755'
+  become: true
 
 - name: "Create adguard/conf directory"
   ansible.builtin.file:
@@ -15,6 +16,7 @@
     owner: root
     group: root
     mode: '0755'
+  become: true
 
 - name: "Create adguard/data directory"
   ansible.builtin.file:
@@ -23,3 +25,4 @@
     owner: root
     group: root
     mode: '0755'
+  become: true

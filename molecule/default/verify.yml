@@ -3,21 +3,6 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: "Test: file /etc/hosts"
-      block:
-        - name: "Stat file /etc/hosts"
-          ansible.builtin.stat:
-            path: "/etc/hosts"
-          register: stat_etc_hosts
-
-        - name: "Verify file /etc/hosts"
-          ansible.builtin.assert:
-            that:
-              - stat_etc_hosts.stat.exists
-              - stat_etc_hosts.stat.isreg
-              - stat_etc_hosts.stat.pw_name == 'root'
-              - stat_etc_hosts.stat.gr_name == 'root'
-
     - name: "Test: directory /opt/adguard"
       block:
         - name: "Stat directory /opt/adguard"
@@ -68,6 +53,7 @@
           ansible.builtin.slurp:
             src: "/etc/systemd/system/adguard.service"
           register: slurp_etc_systemd_system_adguard_service
+          become: true
 
         - name: "Verify service adguard"
           ansible.builtin.assert:
@@ -89,6 +75,7 @@
           ansible.builtin.slurp:
             src: "/opt/adguard/docker-compose.yml"
           register: slurp_opt_adguard_docker_compose_yml
+          become: true
 
 
         - name: "Set fact for file content /opt/adguard/docker-compose.yml"

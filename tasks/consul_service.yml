@@ -7,10 +7,12 @@
     owner: root
     group: root
     mode: '0644'
+  become: true
   notify:
     - "consul-services-register-adguard"
 
 - name: "Configure service mesh proxy"
+  become: true
   when: deploy_adguard_consul['configuration']['service']['connect'] is defined
   block:
     - name: "Copy adguard-connect-proxy.env file"

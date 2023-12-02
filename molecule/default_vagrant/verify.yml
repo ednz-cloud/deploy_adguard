@@ -1,7 +1,7 @@
 ---
 - name: Verify
   hosts: all
-  gather_facts: false
+  gather_facts: true
   tasks:
     - name: "Test: directory /opt/adguard"
       block:
@@ -77,6 +77,7 @@
           register: slurp_opt_adguard_docker_compose_yml
           become: true
 
+
         - name: "Set fact for file content /opt/adguard/docker-compose.yml"
           ansible.builtin.set_fact:
             opt_adguard_docker_compose_yml_json: "{{ slurp_opt_adguard_docker_compose_yml.content | b64decode | from_yaml | to_json | from_json }}"
@@ -87,17 +88,13 @@
               - opt_adguard_docker_compose_yml_json['version'] is defined
               - opt_adguard_docker_compose_yml_json['version'] == '3.9'
               - opt_adguard_docker_compose_yml_json['services'] is defined
-              - opt_adguard_docker_compose_yml_json['services']|length == 3
-              - opt_adguard_docker_compose_yml_json['services']['keepalived'] is defined
-              - opt_adguard_docker_compose_yml_json['services']['keepalived']['image'] == 'ghcr.io/rmartin16/keepalived:latest'
+              - opt_adguard_docker_compose_yml_json['services']|length == 1
               - opt_adguard_docker_compose_yml_json['services']['adguard'] is defined
               - opt_adguard_docker_compose_yml_json['services']['adguard']['image'] == 'adguard/adguardhome:latest'
-              - opt_adguard_docker_compose_yml_json['services']['node_exporter'] is defined
-              - opt_adguard_docker_compose_yml_json['services']['node_exporter']['image'] == 'ebrianne/adguard-exporter:latest'
               - opt_adguard_docker_compose_yml_json['networks'] is defined
               - opt_adguard_docker_compose_yml_json['networks']|length == 1
               - opt_adguard_docker_compose_yml_json['volumes'] is defined
               - opt_adguard_docker_compose_yml_json['volumes']|length == 2
               - opt_adguard_docker_compose_yml_json['volumes']['conf'] is defined
               - opt_adguard_docker_compose_yml_json['volumes']['data'] is defined
-              - opt_adguard_docker_compose_yml_json['secrets'] is defined
+              - opt_adguard_docker_compose_yml_json['secrets'] is not defined
