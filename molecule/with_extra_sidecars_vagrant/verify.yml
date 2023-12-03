@@ -2,6 +2,7 @@
 - name: Verify
   hosts: all
   gather_facts: true
+  become: true
   tasks:
     - name: "Test: directory /opt/adguard"
       block:
@@ -53,7 +54,6 @@
           ansible.builtin.slurp:
             src: "/etc/systemd/system/adguard.service"
           register: slurp_etc_systemd_system_adguard_service
-          become: true
 
         - name: "Verify service adguard"
           ansible.builtin.assert:
@@ -75,7 +75,6 @@
           ansible.builtin.slurp:
             src: "/opt/adguard/docker-compose.yml"
           register: slurp_opt_adguard_docker_compose_yml
-          become: true
 
         - name: "Set fact for file content /opt/adguard/docker-compose.yml"
           ansible.builtin.set_fact:

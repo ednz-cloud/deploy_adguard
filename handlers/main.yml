@@ -3,21 +3,18 @@
 - name: "Reload systemd file"
   ansible.builtin.systemd:
     daemon_reload: true
-  become: true
   listen: "systemctl-daemon-reload"
 
 - name: "Enable adguard service"
   ansible.builtin.service:
     name: adguard
     enabled: true
-  become: true
   listen: "systemctl-enable-adguard"
 
 - name: "Start adguard service"
   ansible.builtin.service:
     name: adguard
     state: restarted
-  become: true
   listen: "systemctl-restart-adguard"
   throttle: 1
   when: deploy_adguard_start_service
@@ -35,5 +32,4 @@
     name: adguard-connect-proxy
     enabled: true
     state: restarted
-  become: true
   listen: "systemctl-enable-restart-adguard-connect-proxy"
