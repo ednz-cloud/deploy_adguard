@@ -7,7 +7,7 @@ This role install and configure adguard, with optionally virtual IP, metrics, an
 Requirements
 ------------
 
-This role assumes you have `docker`, `docker-compose`, and eventually `consul` installed if using the consul integration. The role will not install these components, but you can install them using the [install_docker](https://github.com/ednxzu/install_docker) and [hashicorp_consul](https://github.com/ednxzu/hashicorp_consul) roles.
+This role assumes you have `docker`, `docker-compose`, and eventually `consul` installed if using the consul integration. The role will not install these components, but you can install them using the [install_docker](https://github.com/ednz_cloud/install_docker) and [hashicorp_consul](https://github.com/ednz_cloud/hashicorp_consul) roles.
 
 Role Variables
 --------------
@@ -93,7 +93,7 @@ deploy_adguard_consul: # by default, set to the following
       connect:
         sidecar_service: {}
 ```
-This variable handles registering adguard as a [consul](https://developer.hashicorp.com/consul) service, for healthchecking and other features. Note that this role will not install consul, envoy, or any other binary necessary for this feature to work. You can check the [hashicorp_consul](https://github.com/ednxzu/hashicorp_consul) ansible role, to deploy a consul agent on the same node.
+This variable handles registering adguard as a [consul](https://developer.hashicorp.com/consul) service, for healthchecking and other features. Note that this role will not install consul, envoy, or any other binary necessary for this feature to work. You can check the [hashicorp_consul](https://github.com/ednz_cloud/hashicorp_consul) ansible role, to deploy a consul agent on the same node.
 
 ```yaml
 deploy_adguard_config: {} # by default, set to {}
@@ -112,7 +112,7 @@ Example Playbook
 # calling the role inside a playbook with either the default or group_vars/host_vars
 - hosts: servers
   roles:
-    - ednxzu.deploy_adguard
+    - ednz_cloud.deploy_adguard
 ```
 
 License

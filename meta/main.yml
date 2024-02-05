@@ -1,12 +1,12 @@
 ---
 # meta file for deploy_adguard
 galaxy_info:
-  namespace: 'ednxzu'
-  role_name: 'deploy_adguard'
-  author: 'Bertrand Lanson'
-  description: 'Install and configure adguard using docker for debian-based distros.'
-  license: 'license (BSD, MIT)'
-  min_ansible_version: '2.10'
+  namespace: "ednz_cloud"
+  role_name: "deploy_adguard"
+  author: "Bertrand Lanson"
+  description: "Install and configure adguard using docker on debian-based distributions"
+  license: "license (BSD, MIT)"
+  min_ansible_version: "2.10"
   platforms:
     - name: Ubuntu
       versions:
@@ -17,10 +17,10 @@ galaxy_info:
         - bullseye
         - bookworm
   galaxy_tags:
-    - 'ubuntu'
-    - 'debian'
-    - 'adguard'
-    - 'adblock'
-    - 'docker'
+    - "ubuntu"
+    - "debian"
+    - "adguard"
+    - "adblock"
+    - "docker"
 
 dependencies: []
