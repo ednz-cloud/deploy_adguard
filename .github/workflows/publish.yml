@@ -16,5 +16,5 @@ jobs:
         uses: ednxzu/galaxy-import-role@v2
         with:
           galaxy-api-key: ${{ secrets.GALAXY_API_TOKEN }}
-          repository-owner: ednz_cloud
+          repository-owner: ednxzu
           repository-name: deploy_adguard
